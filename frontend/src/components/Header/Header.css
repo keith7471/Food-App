@@ -1,0 +1,53 @@
+.header{
+    height: 34vw;
+    margin: 30px auto;
+    background:url('/header_img.png') no-repeat ;
+    background-size: contain ;
+    position: relative;
+}
+
+.Header-contents{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    max-width: 50%;
+    gap: 0.5vw;
+    bottom: 10%;
+    left: 4vw;
+    animation: fadeIn 3s;
+}
+
+.Header-contents h2{
+    color: white;
+    font-weight: 500;
+    font-size: 3rem;
+}
+
+.Header-contents p{
+    color: white ;
+    font-size: 1rem;
+}
+
+.Header-contents .viewMenu{
+    width: 5.5rem;
+    background-color: white;
+    color: black;
+    padding: 0.4rem 0.4rem;
+    border-radius: 1rem ;
+}
+
+@media (max-width:1050px) {
+    .header-contents{
+        max-width: 65%;
+    }
+}
+
+@media (max-width:750px) {
+    .header-contents{
+        max-width: 65%;
+    }
+
+    .header-contents p{
+        display: none;
+    }
+}
