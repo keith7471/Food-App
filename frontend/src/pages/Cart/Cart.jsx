@@ -1,0 +1,88 @@
+import React from 'react'
+import './Cart.css'
+import { useContext } from 'react'
+import { StoreContext } from './../../context/StoreContext';
+
+const Cart = () => {
+
+  const { cartItems, food_list, removeFromCart } = useContext(StoreContext);
+
+  return (
+    <div className='cart mt-2'>
+      <div className="cart-items">
+        <div class="cart-items-title grid grid-cols-6 items-center gap-4 mt-10">
+          <p>Items</p>
+          <p>Title</p>
+          <p>Price</p>
+          <p>Quantity</p>
+          <p>Total</p>
+          <p>Remove</p>
+        </div>
+        <br />
+        <hr />
+        {
+          food_list.map((items, index) => {
+            if (cartItems[items._id] > 0) {
+              return (
+                <div className="cart-items-title cart-items-item grid grid-cols-6 items-center gap-5">
+                  <img className='w-20 mt-5' src={items.image} alt="" />
+                  <p>{items.name}</p>
+                  <p>{items.price}</p>
+                  <p>{items._id}</p>
+                  <p>{items.price * cartItems[items._id]}</p>
+                  <p>x</p>
+                </div>
+              )
+            }
+          })
+        }
+
+
+        <div className="cart-bottom mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Cart Total Section */}
+          <div className="cart-total flex flex-col gap-6">
+            <h2 className="text-lg font-semibold">Cart Total</h2>
+            <div className="total-cart-details">
+              <div className="cart-total-details flex justify-between gap-20 text-gray-500">
+                <p className="text-gray-500">Subtotal</p>
+                <p>{0}</p>
+              </div>
+              <hr />
+              <div className="cart-total-details flex justify-between text-gray-500 mt-2">
+                <p>Delivery Fee</p>
+                <p>{2}</p>
+              </div>
+              <hr />
+              <div className="cart-total-details flex justify-between mt-5">
+                <b>Total</b>
+                <b>{0}</b>
+              </div>
+            </div>
+            <button className="bg-gray-400 text-white rounded-md hover:bg-gray-600 transition py-2 px-4">
+              Proceed to Checkout
+            </button>
+          </div>
+
+          {/* Promo Code Section */}
+          <div className="cart-promocode flex flex-col gap-4">
+            <p>If you have a promo code, enter it here:</p>
+            <div className="cart-promocode-input flex items-center">
+              <input
+                className="rounded-sm outline outline-1 outline-gray-300 py-2 px-3 w-full"
+                type="text"
+                placeholder="Promo code"
+              />
+              <button className="bg-orange-400 px-4 py-2 text-white rounded-md hover:bg-orange-600 transition ml-2">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    
+  )
+}
+
+export default Cart
