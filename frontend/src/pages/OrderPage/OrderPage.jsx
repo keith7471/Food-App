@@ -3,9 +3,9 @@ import './OrderPage.css'
 
 const OrderPage = () => {
   return (
-    <div>
+    <form className="place-order">
       
-    </div>
+    </form>
   )
 }
 

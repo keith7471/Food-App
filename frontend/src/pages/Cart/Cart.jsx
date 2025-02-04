@@ -2,15 +2,23 @@ import React from 'react'
 import './Cart.css'
 import { useContext } from 'react'
 import { StoreContext } from './../../context/StoreContext';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
 
-  const { cartItems, food_list, removeFromCart } = useContext(StoreContext);
+  const { cartItems, food_list, removeCartItem,subtotal } = useContext(StoreContext);
+
+  const navigate = useNavigate();
+
+  console.log("sssss",subtotal);
+
+  const deliveryFee = 2;
+  const total = subtotal + deliveryFee;
 
   return (
     <div className='cart mt-2'>
       <div className="cart-items">
-        <div class="cart-items-title grid grid-cols-6 items-center gap-4 mt-10">
+        <div className="cart-items-title grid grid-cols-6 items-center gap-4 mt-10">
           <p>Items</p>
           <p>Title</p>
           <p>Price</p>
@@ -28,9 +36,9 @@ const Cart = () => {
                   <img className='w-20 mt-5' src={items.image} alt="" />
                   <p>{items.name}</p>
                   <p>{items.price}</p>
-                  <p>{items._id}</p>
+                  <p>{cartItems[items._id]}</p>
                   <p>{items.price * cartItems[items._id]}</p>
-                  <p>x</p>
+                  <p onClick={() => { removeCartItem(items._id) }}>x</p>
                 </div>
               )
             }
@@ -45,20 +53,20 @@ const Cart = () => {
             <div className="total-cart-details">
               <div className="cart-total-details flex justify-between gap-20 text-gray-500">
                 <p className="text-gray-500">Subtotal</p>
-                <p>{0}</p>
+                <p>${subtotal.toFixed(2)}</p>
               </div>
               <hr />
               <div className="cart-total-details flex justify-between text-gray-500 mt-2">
                 <p>Delivery Fee</p>
-                <p>{2}</p>
+                <p>{deliveryFee}</p>
               </div>
               <hr />
               <div className="cart-total-details flex justify-between mt-5">
                 <b>Total</b>
-                <b>{0}</b>
+                <b>{total}</b>
               </div>
             </div>
-            <button className="bg-gray-400 text-white rounded-md hover:bg-gray-600 transition py-2 px-4">
+            <button className="bg-gray-400 text-white rounded-md hover:bg-gray-600 transition py-2 px-4" onClick={() =>navigate('/order')}>
               Proceed to Checkout
             </button>
           </div>
@@ -81,7 +89,7 @@ const Cart = () => {
 
       </div>
     </div>
-    
+
   )
 }
 

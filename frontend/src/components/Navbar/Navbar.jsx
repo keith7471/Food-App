@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { assets } from '../../assets/assets';
 import './Navbar.css'
 import { Link } from 'react-router-dom';
+import { StoreContext } from '../../context/StoreContext';
 
-const Navbar = ({setShowLogin}) => {
+const Navbar = ({ setShowLogin }) => {
     const [menu, setMenu] = useState("home"); // Tracks the active menu
     const [isMenuOpen, setIsMenuOpen] = useState(false); // Tracks hamburger menu toggle
+
+    const { subtotal } = useContext(StoreContext);
 
     return (
         <div className="navbar flex justify-between items-center px-6 py-4 bg-white relative">
@@ -52,7 +55,7 @@ const Navbar = ({setShowLogin}) => {
                     mobile-apps
                 </a>
                 <a
-                href='#contact-us'
+                    href='#contact-us'
                     onClick={() => setMenu("contact us")}
                     className={`smooth-scroll cursor-pointer px-4 py-2 md:px-0 md:py-0 hover:text-blue-500 ${menu === "contact us" ? "font-bold text-blue-500" : ""
                         }`}
@@ -66,9 +69,13 @@ const Navbar = ({setShowLogin}) => {
                 <img src={assets.search_icon} alt="Search" className="h-6" />
                 <div className="relative">
                     <Link to='/cart'><img src={assets.basket_icon} alt="Basket" className="h-6" /></Link>
-                    <div className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></div>
+                    {console.log("subtotal is",subtotal)}
+                    {subtotal>0 &&
+                        <div className={"absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"}></div>
+                    }
+
                 </div>
-                <button onClick={ ()=>{ setShowLogin(true) } } className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                <button onClick={() => { setShowLogin(true) }} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
                     Sign in
                 </button>
             </div>

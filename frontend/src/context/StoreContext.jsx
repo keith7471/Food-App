@@ -20,7 +20,14 @@ const StoreContextProvider = (props) => {
 
     const removeCartItem = (itemId) =>{
         setCartItems((prev) => ({...prev,[itemId]: prev[itemId] - 1 }))
-    }
+    };
+
+    const subtotal = food_list.reduce((acc, item) => {
+        if (cartItems[item._id] > 0) {
+          return acc + item.price * cartItems[item._id];
+        }
+        return acc;
+      }, 0);
 
     useEffect(() =>{
         console.log(cartItems)
@@ -32,7 +39,8 @@ const StoreContextProvider = (props) => {
         cartItems,
         setCartItems,
         addCartItem,
-        removeCartItem
+        removeCartItem,
+        subtotal
     }
 
 
