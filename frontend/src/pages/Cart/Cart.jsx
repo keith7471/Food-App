@@ -6,11 +6,11 @@ import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
 
-  const { cartItems, food_list, removeCartItem,subtotal } = useContext(StoreContext);
+  const { cartItems, food_list, removeCartItem, subtotal } = useContext(StoreContext);
 
   const navigate = useNavigate();
 
-  console.log("sssss",subtotal);
+  console.log("sssss", subtotal);
 
   const deliveryFee = 2;
   const total = subtotal + deliveryFee;
@@ -46,9 +46,9 @@ const Cart = () => {
         }
 
 
-        <div className="cart-bottom mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="cart-bottom mt-11 flex gap-4 justify-between items-center">
           {/* Cart Total Section */}
-          <div className="cart-total flex flex-col gap-6">
+          <div className="cart-total flex flex-col gap-3 w-1/2">
             <h2 className="text-lg font-semibold">Cart Total</h2>
             <div className="total-cart-details">
               <div className="cart-total-details flex justify-between gap-20 text-gray-500">
@@ -58,29 +58,31 @@ const Cart = () => {
               <hr />
               <div className="cart-total-details flex justify-between text-gray-500 mt-2">
                 <p>Delivery Fee</p>
-                <p>{deliveryFee}</p>
+                <p>{subtotal === 0 ? 0 : deliveryFee}$</p>
               </div>
               <hr />
               <div className="cart-total-details flex justify-between mt-5">
                 <b>Total</b>
-                <b>{total}</b>
+                <b>${subtotal === 0 ? 0 : total}</b>
               </div>
             </div>
-            <button className="bg-gray-400 text-white rounded-md hover:bg-gray-600 transition py-2 px-4" onClick={() =>navigate('/order')}>
-              Proceed to Checkout
-            </button>
+            <div className='flex justify-end'>
+              <button className="bg-gray-400 text-white rounded-md hover:bg-gray-600 transition py-1 px-2 w-2/5" onClick={() => navigate('/order')}>
+                Proceed to Checkout
+              </button>
+            </div>
           </div>
 
           {/* Promo Code Section */}
-          <div className="cart-promocode flex flex-col gap-4">
+          <div className="cart-promocode flex flex-col gap-2 w-[500px]">
             <p>If you have a promo code, enter it here:</p>
             <div className="cart-promocode-input flex items-center">
               <input
-                className="rounded-sm outline outline-1 outline-gray-300 py-2 px-3 w-full"
+                className="rounded-sm border border-gray-300 py-1 px-2 w-full"
                 type="text"
                 placeholder="Promo code"
               />
-              <button className="bg-orange-400 px-4 py-2 text-white rounded-md hover:bg-orange-600 transition ml-2">
+              <button className="bg-orange-400 px-2 py-1 text-white rounded-md hover:bg-orange-600 transition ml-1 self-end">
                 Submit
               </button>
             </div>
